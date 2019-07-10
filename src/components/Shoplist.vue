@@ -1,13 +1,25 @@
 <template>
   <div class="shoplist">
-    Shoplist
+    <div class="holder">
+      <p v-if="shoplist.length>0">There is your shoplist:</p>
+      <p v-else>There is no products on the shoplist</p>
+      <ul>
+        <li v-for="(data, index) in shoplist" :key='index'> {{ index }}. {{ data.product }}</li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'Shoplist',
-  props: {
+  data() {
+    return {
+      shoplist: [
+        { "product": "cheese" },
+        { "product": "beef steak" },
+      ]
+    }
   }
 }
 </script>
