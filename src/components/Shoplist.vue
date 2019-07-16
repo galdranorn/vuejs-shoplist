@@ -6,7 +6,7 @@
       <ul class="shoplist">
         <li v-for="(data, index) in shoplist" :key='index'> {{ index }}. {{ data.product }}</li>
       </ul>
-      <div v-bind:class="{ alert: showAlert, 'hello': showHello }"></div>
+      <div v-bind:style="{ backgroundColor: bgClr, widht: bgWth, height: bgHth }"></div>
     </div>
   </div>
 </template>
@@ -20,8 +20,9 @@ export default {
         { "product": "cheese" },
         { "product": "beef steak" },
       ],
-      showAlert: true,
-      showHello: false, // change to true to make background red
+      bgClr: 'green',
+      bgWth: '100%',
+      bgHth: '30px',
     }
   }
 }
@@ -30,7 +31,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .alert {
-    background-color: yellow;
+    background-color: rgb(179, 179, 121);
     width: 100%;
     height: 30px;
   }
