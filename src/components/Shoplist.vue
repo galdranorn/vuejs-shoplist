@@ -4,14 +4,18 @@
 
       <form @submit.prevent="addProduct">
         <input type="text" placeholder="Enter what you want to buy..." v-model="product" v-validate="'min:3'" name="product"/>
-        <p class="alert" v-if="errors.has('product')">{{ errors.first('product') }}</p>
+        <transition name="alert-in"> <!-- custom animation -->
+          <p class="alert" v-if="errors.has('product')">{{ errors.first('product') }}</p>
+        </transition>
       </form>
-      
-      <p class="header" v-if="shoplist.length>0">There is your shoplist:</p>
-      <p class="header" v-else>There is no products on the shoplist</p>
-      <ul class="shoplist">
-        <li v-for="(data, index) in shoplist" :key='index'>{{ data.product }}</li>
+      <ul class="shoplist" v-if="shoplist.length>0">
+        <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown"> <!-- animate.css -->
+          <li v-for="(data, index) in shoplist" :key='index'>
+            {{ data.product }}
+          </li>
+        </transition-group>
       </ul>
+      <p v-else>There is no products on the shoplist</p>
     </div>
   </div>
 </template>
@@ -35,9 +39,6 @@ export default {
           this.shoplist.push({product: this.product});
           this.product = '';
         }
-        else {
-          //console.log('Not valid')
-        }
       })
       
     }
@@ -47,6 +48,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css";
+
   .holder {
     background: #fff;
   }
@@ -90,6 +93,20 @@ export default {
     display: inline-block;
     padding: 5px;
     margin-top: -20px;
+  }
+
+  /* custom animation */
+  .alert-in-enter-active {
+    animation: bounce-in .5s;
+  }
+  .alert-in-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+
+  @keyframes bounce-in {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
   }
 
 </style>
