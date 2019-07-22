@@ -11,6 +11,7 @@
       <ul class="shoplist" v-if="shoplist.length>0">
         <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown"> <!-- animate.css -->
           <li v-for="(data, index) in shoplist" :key='index'>
+            <span class="fa fa-minus-circle" v-on:click="removeProduct(index)" />
             {{ data.product }}
           </li>
         </transition-group>
@@ -40,7 +41,9 @@ export default {
           this.product = '';
         }
       })
-      
+    },
+    removeProduct(id) {
+      this.shoplist.splice(id, 1);
     }
   }
 }
@@ -49,6 +52,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css";
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 
   .holder {
     background: #fff;
